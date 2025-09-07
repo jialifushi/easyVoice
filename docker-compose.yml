@@ -1,12 +1,18 @@
 services:
   easyvoice:
-    image: cosincox/easyvoice:latest
-    restart: unless-stopped
+    image: easyVoice:v0.1.0
+    restart: always
     container_name: easyvoice
     ports:
       - "9549:3000"
     environment:
       - DEBUG=true
       - OPENAI_BASE_URL=https://openrouter.ai/api/v1/
+      - ALLOW_CODE=hertz # 访问码，用户输入此码即可登录
     volumes:
       - ./audio:/app/audio
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
